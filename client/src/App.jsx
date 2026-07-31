@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import "./App.css";
+
 
 function App() {
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [quizFinished, setQuizFinished] = useState(false);
+  const [results, setResults] = useState({});
 
   useEffect(() => {
     fetch("http://localhost:5000/api/questions")
@@ -12,6 +15,13 @@ function App() {
       .then((data) => {
         setQuestions(data);
       });
+
+      fetch("http://localhost:5000/api/results")
+  .then((response) => response.json())
+  .then((data) => {
+    setResults(data);
+  });
+
   }, []);
 
    const handleAnswer = (meme) => {
@@ -47,19 +57,43 @@ const getResult = () => {
   return winner;
 };
 
+const restartQuiz = () => {
+  setCurrentQuestion(0);
+  setAnswers([]);
+  setQuizFinished(false);
+};
+
+const progress = ((currentQuestion + 1) / questions.length) * 100;
+
+
 if (quizFinished) {
-    return (
-      <div>
-        <h1>you are....</h1>
-        <h2>{getResult()}</h2>
-      </div>
-    );
-  }
-   
+
+  const winner = getResult();
 
   return (
     <div>
+      <h1>{results[winner]?.image}</h1>
+      <h2>{winner}</h2>
+      <p>{results[winner]?.description}</p>
+
+      <button onClick={restartQuiz}>
+       Try Again
+       </button>
+    </div>
+  );
+}
+   
+
+  return (
+    <div className="App">
       <h1>Which Meme Are You?</h1>
+
+      <div className="progress-bar">
+      <div
+    className="progress-fill"
+    style={{ width: `${progress}%` }}
+     ></div>
+    </div>
 
       {questions.length > 0 ? (
         <>
@@ -75,9 +109,6 @@ if (quizFinished) {
   
       ))}
 
-          <button onClick={() => setCurrentQuestion(currentQuestion + 1)} >
-            Next
-          </button>
         </>
       ) : (
         <p>Loading...</p>

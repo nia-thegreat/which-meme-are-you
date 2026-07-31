@@ -4,21 +4,21 @@ const cors = require("cors");
 
 const express = require("express");
 
+const results = require("./data/results");
+
 const app = express();
 
 app.use(cors());
 
 const PORT = 5000;
 
-app.get("/api/meme", (req,res) => 
-{ res.json({
-    meme: "pepe",
-    description: "you are calm untilsm1 says group project"
-});
-});
 
 app.get("/api/questions", (req, res) => {
   res.json(questions);
+});
+
+app.get("/api/results", (req, res) => {
+  res.json(results);
 });
 
 app.listen(PORT,() => 
