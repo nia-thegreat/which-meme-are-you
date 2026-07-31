@@ -1,5 +1,16 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import pepe from "./assets/memes/pepe.webp";
+import cheems from "./assets/memes/cheems.jpeg";
+import gigachad from "./assets/memes/gigachad.jpeg";
+import cryingCat from "./assets/memes/Crying_Cat.jpg";
+
+const memeImages = {
+  "pepe.webp": pepe,
+  "cheems.jpeg": cheems,
+  "gigachad.jpeg": gigachad,
+  "Crying_Cat.jpg": cryingCat,
+};
 
 
 function App() {
@@ -23,6 +34,7 @@ function App() {
   });
 
   }, []);
+  
 
    const handleAnswer = (meme) => {
   const updatedAnswers = [...answers, meme];
@@ -63,19 +75,24 @@ const restartQuiz = () => {
   setQuizFinished(false);
 };
 
-const progress = ((currentQuestion + 1) / questions.length) * 100;
-
+const progress = (answers.length / questions.length) * 100;
 
 if (quizFinished) {
 
   const winner = getResult();
 
   return (
-    <div>
-      <h1>{results[winner]?.image}</h1>
-      <h2>{winner}</h2>
-      <p>{results[winner]?.description}</p>
+    <div className="App">
+      <h1>{winner}</h1>
 
+      <img
+        src={memeImages[results[winner]?.image]}
+        alt={winner}
+        className="meme-image"
+      />
+
+      <p>{results[winner]?.description}</p>
+     
       <button onClick={restartQuiz}>
        Try Again
        </button>
@@ -98,7 +115,7 @@ if (quizFinished) {
       {questions.length > 0 ? (
         <>
         <h2>{questions[currentQuestion].question}</h2>
-
+        <div classname="options">
         {questions[currentQuestion].options.map((option) => (
 
           <button
@@ -108,6 +125,7 @@ if (quizFinished) {
           </button>
   
       ))}
+      </div>
 
         </>
       ) : (
