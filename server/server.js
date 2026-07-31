@@ -1,3 +1,5 @@
+const questions = require("./data/questions");
+
 const cors = require("cors");
 
 const express = require("express");
@@ -13,6 +15,10 @@ app.get("/api/meme", (req,res) =>
     meme: "pepe",
     description: "you are calm untilsm1 says group project"
 });
+});
+
+app.get("/api/questions", (req, res) => {
+  res.json(questions);
 });
 
 app.listen(PORT,() => 
