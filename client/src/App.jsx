@@ -34,13 +34,13 @@ function App() {
   const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
-    fetch("https://your-render-app.onrender.com/api/questions")
+    fetch("https://which-meme-are-you.onrender.com/api/questions")
       .then((response) => response.json())
       .then((data) => {
         setQuestions(data);
       });
 
-      fetch("https://your-render-app.onrender.com/api/results")
+      fetch("https://which-meme-are-you.onrender.com/api/results")
   .then((response) => response.json())
   .then((data) => {
     setResults(data);
