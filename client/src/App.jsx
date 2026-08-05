@@ -34,13 +34,13 @@ function App() {
   const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/questions")
+    fetch("https://your-render-app.onrender.com/api/questions")
       .then((response) => response.json())
       .then((data) => {
         setQuestions(data);
       });
 
-      fetch("http://localhost:5000/api/results")
+      fetch("https://your-render-app.onrender.com/api/results")
   .then((response) => response.json())
   .then((data) => {
     setResults(data);
@@ -148,10 +148,6 @@ if (!gameStarted) {
 
 
 //result page
-
-console.log("Questions:", questions.length);
-console.log("Answers:", answers.length);
-console.log("Progress:", progress);
 
 
 if (quizFinished) {
