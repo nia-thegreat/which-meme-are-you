@@ -68,6 +68,9 @@ function App() {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
+
+      window.gtag?.("event", "quiz_completed");
+
       setQuizFinished(true);
     }
 
@@ -135,7 +138,11 @@ if (!gameStarted) {
 
         <button
           className="start-btn"
-          onClick={() => setGameStarted(true)}
+          onClick={() => {
+
+          window.gtag?.("event", "quiz_started");
+    
+         setGameStarted(true)}}
         >
           Start Quiz
         </button>
@@ -154,6 +161,8 @@ if (quizFinished) {
 
   const winner = getResult();
 
+  window.gtag?.("event", "meme_result_viewed", { meme_name: winner  });
+  
   return (
     <div className="App">
 
